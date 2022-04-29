@@ -41,15 +41,15 @@ export class ModifyNote extends ChalkColor implements modifyNoteInterface {
       },
       handler(argv) {
         const color = new ChalkColor();
-        if (fs.existsSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`)) {
+        if (fs.existsSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct10-async-fs-process-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`)) {
           try {
-            fs.readFileSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`);
+            fs.readFileSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct10-async-fs-process-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`);
             // Paso el contenido del fichero en formato JSON a una variable y le cambio el valor del cuerpo
             // y se crea el mismo fichero con el nuevo body pasado
-            const json = require(`/home/usuario/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`);
+            const json = require(`/home/usuario/ull-esit-inf-dsi-21-22-prct10-async-fs-process-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`);
             json.body = argv.body;
             try {
-              fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`, JSON.stringify(json, null, 2));
+              fs.writeFileSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct10-async-fs-process-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`, JSON.stringify(json, null, 2));
               return console.log(color.getColor('green', 'La nota se ha modificado de forma satisfactoria'));
             } catch (err) {
               return console.log(color.getColor('red', 'No se ha podido crear la nota'));

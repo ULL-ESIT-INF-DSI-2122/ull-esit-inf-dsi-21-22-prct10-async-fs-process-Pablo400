@@ -26,13 +26,18 @@ export class CreateDir {
         },
       },
       handler(argv) {
-        mkdir(`${argv.dirName}`, (err) => {
-          if (err) {
-            return console.error(err);
-          }
-          console.log('Directorio creado de forma satisfactoria');
-        });
+        const newDir = new CreateDir();
+        newDir.newDirFunction(`${argv.dirName}`);
       },
+    });
+  }
+
+  private newDirFunction(dirName: string) {
+    mkdir(`${dirName}`, (err) => {
+      if (err) {
+        return console.error(err);
+      }
+      console.log('Directorio creado de forma satisfactoria');
     });
   }
 }

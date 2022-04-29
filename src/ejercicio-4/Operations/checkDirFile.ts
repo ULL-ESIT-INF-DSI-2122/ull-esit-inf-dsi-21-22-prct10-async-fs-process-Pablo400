@@ -13,7 +13,7 @@ export class Check {
   constructor() {}
 
   /**
-   * Checks if a path is a direcotry or a file
+   * Checks if a path is a directory or a file
   */
   dirOrFile() {
     yargs.command({
@@ -27,17 +27,22 @@ export class Check {
         },
       },
       handler(argv) {
-        lstat(`${argv.path}`, (err, stats) => {
-          if (err) {
-            return console.log(err);
-          }
-          if (stats.isFile()) {
-            console.log(`Es un fichero`);
-          } else if (stats.isDirectory()) {
-            console.log(`Es un directorio`);
-          }
-        });
+        const prueba = new Check();
+        prueba.checkFunction(`${argv.path}`);
       },
+    });
+  }
+
+  private checkFunction(path: string) {
+    lstat(`${path}`, (err, stats) => {
+      if (err) {
+        return console.log(err);
+      }
+      if (stats.isFile()) {
+        console.log(`Es un fichero`);
+      } else if (stats.isDirectory()) {
+        console.log(`Es un directorio`);
+      }
     });
   }
 }

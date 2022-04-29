@@ -54,8 +54,7 @@ File helloworld.txt has been modified somehow
 
 Como se puede ver se ha ejecutado el manejador del evento ```watcher```, ¿Porqué ocurre esto?. Esto ocurre porque este evento se quedo esperando en la API Web para poder ejecutarse, después de estar en la API Web al modificarse el fichero se paso a la cola de manejadores y se espero a que el bucle de eventos confirmara que la pila de llamadas está vacía para poder pasar el manejador a la pila de llamadas y ejecutar el evento correspondiente. 
 
-Una cosa curiosa que ocurre es que el evento ```watch``` muestra dos veces el mensaje de que se ha modificado el fichero, esto sucede porque el manejador es invocado dos veces al estar observando el fichero detecta un cambio y se pasa a la pila de llamadas y se ejecuta, pero se vuelve a ejecutar el evento pasando de la pila de llamadas, a la API Web, a la cola de manejadores y por último el bucle de eventos lo pasa a la pila de llamadas para su segunda ejecución.
-
+Una cosa curiosa que ocurre es que el evento ```watch``` muestra dos veces el mensaje de que se ha modificado el fichero, esto sucede porque ```watch``` es un método poco fiable y algunas veces muestra lo mismo dos veces pero no es algo que haga que el programa sea más lento.
 
 ## Ejercicio 2
 

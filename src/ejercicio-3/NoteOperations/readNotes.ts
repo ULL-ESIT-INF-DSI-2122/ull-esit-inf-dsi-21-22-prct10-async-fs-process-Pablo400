@@ -36,10 +36,10 @@ export class ReadNotes extends ChalkColor implements readNoteInterface {
       },
       handler(argv) {
         const color = new ChalkColor();
-        if (fs.existsSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`)) {
+        if (fs.existsSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct10-async-fs-process-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`)) {
           try {
-            fs.readFileSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`);
-            const json: any = require(`/home/usuario/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`);
+            fs.readFileSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct10-async-fs-process-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`);
+            const json: any = require(`/home/usuario/ull-esit-inf-dsi-21-22-prct10-async-fs-process-Pablo400/ProgramFiles/${argv.user}/${argv.title}.json`);
             console.log(color.getColor(json.color, json.title));
             console.log(color.getColor(json.color, json.body));
           } catch (err) {

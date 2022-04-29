@@ -33,8 +33,8 @@ export class AddUserDirectory extends ChalkColor implements addUserDirectoryInte
         const color = new ChalkColor();
         let createDir: boolean = false;
         try {
-          fs.readFileSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-Pablo400/src/ejercicio-3/users.json`);
-          const json = require(`/home/usuario/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-Pablo400/ProgramFiles/users.json`);
+          fs.readFileSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct10-async-fs-process-Pablo400/src/ejercicio-3/users.json`);
+          const json = require(`/home/usuario/ull-esit-inf-dsi-21-22-prct10-async-fs-process-Pablo400/ProgramFiles/users.json`);
           // Comprobar si existe el usuario mirando en el fichero users.json que es una pequeña base de datos con los usuarios del sistema
           // y creamos su fichero correspondiente
           for (const user of json) {
@@ -44,7 +44,7 @@ export class AddUserDirectory extends ChalkColor implements addUserDirectoryInte
             }
           }
           if (createDir === true) {
-            fs.mkdirSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct09-filesystem-notes-app-Pablo400/ProgramFiles/${argv.user}`);
+            fs.mkdirSync(`/home/usuario/ull-esit-inf-dsi-21-22-prct10-async-fs-process-Pablo400/ProgramFiles/${argv.user}`);
             return console.log(color.getColor('green', 'Directorio del usuario creado'));
           } else {
             return console.log(color.getColor('red', 'No se pudo crear el directorio'));

@@ -17,18 +17,23 @@ export class ShowContent {
         },
       },
       handler(argv) {
-        access(`${argv.path}`, constants.F_OK, (err) => {
-          if (err) {
-            console.log(err);
-          }
-          readFile(`${argv.path}`, function(err, data) {
-            if (err) {
-              console.log(err);
-            }
-            console.log(data.toString());
-          });
-        });
+        const show = new ShowContent();
+        show.pathContentFunction(`${argv.path}`);
       },
+    });
+  }
+
+  private pathContentFunction(path: string) {
+    access(`${path}`, constants.F_OK, (err) => {
+      if (err) {
+        console.log(err);
+      }
+      readFile(`${path}`, function(err, data) {
+        if (err) {
+          console.log(err);
+        }
+        console.log(data.toString());
+      });
     });
   }
 }

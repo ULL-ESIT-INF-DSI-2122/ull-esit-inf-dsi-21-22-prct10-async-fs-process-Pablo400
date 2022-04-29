@@ -26,27 +26,32 @@ export class Delete {
         },
       },
       handler(argv) {
-        lstat(`${argv.path}`, (err, stats) => {
-          if (err) {
-            return console.log(err);
-          }
-          if (stats.isDirectory()) {
-            rmdir(`${argv.path}`, (err) => {
-              if (err) {
-                console.log(err);
-              }
-              console.log('Carpeta eliminada');
-            });
-          } else if (stats.isFile()) {
-            unlink(`${argv.path}`, (err) => {
-              if (err) {
-                console.log(err);
-              }
-              console.log('Fichero eliminado');
-            });
-          }
-        });
+        const deleted = new Delete();
+        deleted.deleteFunction(`${argv.path}`);
       },
+    });
+  }
+
+  private deleteFunction(path: string) {
+    lstat(`${path}`, (err, stats) => {
+      if (err) {
+        return console.log(err);
+      }
+      if (stats.isDirectory()) {
+        rmdir(`${path}`, (err) => {
+          if (err) {
+            console.log(err);
+          }
+          console.log('Carpeta eliminada');
+        });
+      } else if (stats.isFile()) {
+        unlink(`${path}`, (err) => {
+          if (err) {
+            console.log(err);
+          }
+          console.log('Fichero eliminado');
+        });
+      }
     });
   }
 }

@@ -27,38 +27,43 @@ export class ListFiles {
         },
       },
       handler(argv) {
-        lstat(`${argv.dirName}`, (err, stats) => {
-          if (err) {
-            return console.log(err);
-          }
-
-          if (stats.isDirectory()) {
-            const ls = spawn('ls', ['-lAh', `${argv.dirName}`]);
-            const grep = spawn('grep', ['^d', '-v']);
-
-            ls.on('error', (err) => {
-              console.log(err);
-            });
-
-            ls.stdout.pipe(grep.stdin);
-
-            let wcOutput = '';
-            grep.stdout.on('data', (data) => {
-              wcOutput += data.toString();
-            });
-
-            grep.on('close', () => {
-              process.stdout.write(wcOutput);
-            });
-
-            grep.on('error', (err) => {
-              console.log(err);
-            });
-          } else if (stats.isFile()) {
-            console.log('Porfavor introduzca un directorio');
-          }
-        });
+        const list = new ListFiles();
+        list.listFunction(`${argv.dirName}`);
       },
+    });
+  }
+
+  private listFunction(dirName: string) {
+    lstat(`${dirName}`, (err, stats) => {
+      if (err) {
+        return console.log(err);
+      }
+
+      if (stats.isDirectory()) {
+        const ls = spawn('ls', ['-lAh', `${dirName}`]);
+        const grep = spawn('grep', ['^d', '-v']);
+
+        ls.on('error', (err) => {
+          console.log(err);
+        });
+
+        ls.stdout.pipe(grep.stdin);
+
+        let grepOutput = '';
+        grep.stdout.on('data', (data) => {
+          grepOutput += data.toString();
+        });
+
+        grep.on('close', () => {
+          process.stdout.write(grepOutput);
+        });
+
+        grep.on('error', (err) => {
+          console.log(err);
+        });
+      } else if (stats.isFile()) {
+        console.log('Porfavor introduzca un directorio');
+      }
     });
   }
 }
