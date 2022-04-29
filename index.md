@@ -144,5 +144,81 @@ grep.on('close', (code) => {
 
 Primero se crean los procesos hijos usando ```spawn``` como se indico anteriormente. Después se ejecuta en evento ```data``` del comando ```cat``` y en el manejador se le pasa como entrada al comando ```grep``` el resultado del comando ```cat``` y se invoca el evento ```data``` del comando ```grep``` para que el manejador muestre los datos tras haber ejecutado el comando ```grep```. Y también se utilizan los eventos con sus manejadores correspondientes para poder procesar los errores. 
 
+## Ejercicio 3
 
+### Enunciado
 
+La aplicación a desarrollar deberá controlar los cambios realizados sobre todo el directorio especificado al mismo tiempo que dicho usuario interactúa con la aplicación de procesamiento de notas. Nótese que no hace falta modificar absolutamente nada en la aplicación de procesamiento de notas. Es una aplicación que se va a utilizar para provocar cambios en el sistema de ficheros.
+
+### Implementación
+
+En está actividad no hay mucho que comentar al utilizar el mismo código que en la práctica anterior, pero se añade un fichero adicional donde se implementa el método ```watch``` que se encarga de observar todos los cambios en un directorio de las notas en concreto o en todos los directorios al mismo tiempo.
+
+En dicho fichero se crea un clase llamada ```Watcher```, donde se crea un método llamado ```watchDirHound``` que utiliza el paquete ```hound```. El paquete ```hound``` utiliza la funcionalidad de ```watch``` para poder observar un árbol de directorios, a parte de observar cualquier directorio individidual como ya realiza el método ```watch```. Existe un parámetro que permite realizar un watch recursivo y de está manera recorrer un árbol de directorios en busca de cambios, pero por problemas con la versión de node no he podido utilizar y con ayuda de ```hound``` he podido realizar esto.
+
+A parte de observar también debemos mostrar el contenido de un fichero, si se ha creado un nuevo fichero o si se ha modificado el fichero. Para realizar esto utilizo un ```spawn``` para invocar al proceso hijo ```cat``` y poder mostrar el contenido del fichero modificado o creado.
+
+Para ejecutar el programa basta con ejecutarlo como se realizaba en la práctica anterior, pero con el añadido de que en en otro fichero se ejecute lo que es el watcher en otra terminal para poder observar los cambios mientrás se va ejecutando el programa de Notas.
+
+## Ejercicio 4
+
+### Enunciado
+
+Desarrolle una aplicación que permita hacer de wrapper de los distintos comandos empleados en Linux para el manejo de ficheros y directorios. En concreto, la aplicación deberá permitir:
+
+  1. Dada una ruta concreta, mostrar si es un directorio o un fichero.
+  2. Crear un nuevo directorio a partir de una nueva ruta que recibe como parámetro.
+  3. Listar los ficheros dentro de un directorio.
+  4. Mostrar el contenido de un fichero (similar a ejecutar el comando cat).
+  5. Borrar ficheros y directorios.
+  6. Mover y copiar ficheros y/o directorios de una ruta a otra. Para este caso, la aplicación recibirá una ruta origen y una ruta destino. En caso de que   la ruta origen represente un directorio, se debe copiar dicho directorio y todo su contenido a la ruta destino.
+
+### Implementación
+
+En está actividad he seguido una implementación similar a la de la práctica anterior, utilizando una serie de clases para cada función a implementar y usando un fichero donde creo todos los objetos que se han invocado con las clases.
+
+El directorio de está actividad contiene lo siguiente:
+
+```
+📦ejercicio-4
+ ┣ 📂Operations
+ ┃ ┣ 📜checkDirFile.ts
+ ┃ ┣ 📜deleteDirFile.ts
+ ┃ ┣ 📜listFiles.ts
+ ┃ ┣ 📜moveDirFiles.ts
+ ┃ ┣ 📜newDirectory.ts
+ ┃ ┗ 📜showContent.ts
+ ┗ 📜app.ts
+```
+
+En el directorio ```Operations``` se encuentran las principales funciones del **wrapper**, donde cada fichero contiene una clase con la implementación de una función,  y en el fichero ```app.ts``` se invocan a todas las clases. Esto se realiza solamente por cuestiones de orden y depuración de problemas.
+
+En la implementación de cada clase, he decidido lo siguiente:
+
+  - En la clase ```Check``` del fichero ```checkDirFile.ts```.
+
+    - Utilizo la función de ```lstat``` de ```fs``` donde se comprueba si un **path** es un fichero o un directorio.
+
+  - En la clase ```Delete``` del fichero ```deleteDirFile.ts```.
+
+    - Utilizo también la función ````lstat``` para comprobar si el **path** pasado que se quiere eliminar es un directorio o un fichero. Si es un directorio se utiliza la función de ```mkdir``` disponible en ```fs``` y si es un fichero utilizo el método ```unlink```.
+
+  - En la clase ```ListFiles``` del fichero ```listFiles.ts```.
+
+    - En está función se utiliza la función ```spawn``` para invocar al comando ```ls``` y usamos un pipe (similar al de la actividad 2) para unirlo con el comando ```grep``` y filtar la salida para que solo se muestren los ficheros de un directorio dado. También se utiliza la función ````lstat``` para comprobar si está listando un directorio y en caso de ser un fichero se muestra un error.
+
+    - El comando utilizado en Linux sería el siguiente: ```ls -lAh | grep -v ^d```.
+
+  - En la clase ```MoveOrCopy``` del fichero ```moveDirFiles.ts```.
+
+    - En está clase se utilizan dos funciones ```spawn```, uno con el comando ```mv``` y ```cp```. Para saber si el usuario quiere mover o copiar un fichero o directorio, se comprueba con un flag si el usuario quiere copiar o mover un fichero.
+
+  - En la clase ```CreateDir``` del fichero ```newDirectory.ts```.
+
+    - Se utiliza la función ```mkdir``` de la API ```fs```. 
+
+  - En la clase ```ShowContent``` del fichero ```showContent.ts```.
+
+    - Se utiliza la función ```access``` para comprobar si el fichero existe, posteriormente se utiliza el método ```readFile``` para leer el contenido de un fichero.
+
+Todas las funcionalidades de la API ```fs``` se han usado en su versión asincrona, ya que es un requerimiento básico en la práctica y todas las funcionalidades se invocan usando el paquete ```yargs```. 

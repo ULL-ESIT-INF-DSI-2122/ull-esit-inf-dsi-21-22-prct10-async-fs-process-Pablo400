@@ -9,10 +9,7 @@ import {ModifyNote} from './NoteOperations/modifyNote';
 import {RemoveNote} from './NoteOperations/removeNote';
 import {ListNotes} from './NoteOperations/listNotes';
 import {ReadNotes} from './NoteOperations/readNotes';
-import {Watcher} from './watcher';
 
-const watcher = new Watcher();
-watcher.watchDirHound(`ProgramFiles`);
 
 const addUser = new AddUserDirectory();
 const addNote = new AddNote();
