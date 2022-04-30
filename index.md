@@ -205,7 +205,7 @@ En la implementación de cada clase, he decidido lo siguiente:
 
   - En la clase ```ListFiles``` del fichero ```listFiles.ts```.
 
-    - En está función se utiliza la función ```spawn``` para invocar al comando ```ls``` y usamos un pipe (similar al de la actividad 2) para unirlo con el comando ```grep``` y filtar la salida para que solo se muestren los ficheros de un directorio dado. También se utiliza la función ````lstat``` para comprobar si está listando un directorio y en caso de ser un fichero se muestra un error.
+    - En está clase se utiliza la función ```spawn``` para invocar al comando ```ls``` y usamos un pipe (similar al de la actividad 2) para unirlo con el comando ```grep``` y filtar la salida para que solo se muestren los ficheros de un directorio dado. También se utiliza la función ````lstat``` para comprobar si está listando un directorio y en caso de ser un fichero se muestra un error.
 
     - El comando utilizado en Linux sería el siguiente: ```ls -lAh | grep -v ^d```.
 
