@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
 import yargs from 'yargs';
 import {access, constants, readFile} from 'fs';
@@ -5,6 +6,9 @@ import {access, constants, readFile} from 'fs';
 export class ShowContent {
   constructor() {}
 
+  /**
+   * Yargs Command
+  */
   pathContent() {
     yargs.command({
       command: 'cat',
@@ -23,6 +27,10 @@ export class ShowContent {
     });
   }
 
+  /**
+   * Shows the content of any File
+   * @param path Path of the file
+   */
   private pathContentFunction(path: string) {
     access(`${path}`, constants.F_OK, (err) => {
       if (err) {

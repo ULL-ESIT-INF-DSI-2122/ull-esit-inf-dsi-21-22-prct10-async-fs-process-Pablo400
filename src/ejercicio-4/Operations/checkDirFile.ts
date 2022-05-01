@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
 /* eslint-disable eol-last */
 import * as yargs from 'yargs';
@@ -13,7 +14,7 @@ export class Check {
   constructor() {}
 
   /**
-   * Checks if a path is a directory or a file
+   * Yargs Command
   */
   dirOrFile() {
     yargs.command({
@@ -33,6 +34,10 @@ export class Check {
     });
   }
 
+  /**
+   * Checks if a path is a directory or a file
+   * @param path Any path
+   */
   private checkFunction(path: string) {
     lstat(`${path}`, (err, stats) => {
       if (err) {

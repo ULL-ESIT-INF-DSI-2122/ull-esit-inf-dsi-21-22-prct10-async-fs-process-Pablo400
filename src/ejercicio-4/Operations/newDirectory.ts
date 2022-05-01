@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
 import yargs from 'yargs';
 import {mkdir} from 'fs';
@@ -12,8 +13,8 @@ export class CreateDir {
   constructor() {}
 
   /**
-   * Creates a new directory
-   */
+   * Yargs Command
+  */
   newDir() {
     yargs.command({
       command: 'newDir',
@@ -32,6 +33,10 @@ export class CreateDir {
     });
   }
 
+  /**
+   * Creates a new directory
+   * @param dirName Name of any directory
+   */
   private newDirFunction(dirName: string) {
     mkdir(`${dirName}`, (err) => {
       if (err) {

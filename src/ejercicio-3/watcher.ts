@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 /* eslint-disable max-len */
 /* eslint-disable require-jsdoc */
 import {spawn} from 'child_process';
@@ -16,6 +17,10 @@ export class Watcher {
   //   });
   // }
 
+  /**
+   * Watch a directory for changes
+   * @param path Path of the directory or file
+   */
   watchDirHound(path: string) {
     const watcher = hound.watch(`${path}`);
 
@@ -29,6 +34,10 @@ export class Watcher {
     });
   }
 
+  /**
+   * Shows the content of a file
+   * @param file Any file changed or created
+   */
   catFile(file: string) {
     const cat = spawn('cat', [`${file}`]);
 

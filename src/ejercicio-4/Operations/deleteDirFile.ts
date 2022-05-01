@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
 import yargs from 'yargs';
 import {rmdir, lstat, unlink} from 'fs';
@@ -12,7 +13,7 @@ export class Delete {
   constructor() {}
 
   /**
-   * Deletes a path
+   * Yargs Command
   */
   deleteDirFile() {
     yargs.command({
@@ -32,6 +33,10 @@ export class Delete {
     });
   }
 
+  /**
+   * Deletes a path
+   * @param path Any path
+   */
   private deleteFunction(path: string) {
     lstat(`${path}`, (err, stats) => {
       if (err) {

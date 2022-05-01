@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 /* eslint-disable max-len */
 /* eslint-disable require-jsdoc */
 import yargs from 'yargs';
@@ -13,8 +14,8 @@ export class MoveOrCopy {
   constructor() {}
 
   /**
-   * Moves or copies a file or directory
-   */
+   * Yargs Command
+  */
   moveOrCopy() {
     yargs.command({
       command: 'mvcp',
@@ -43,6 +44,13 @@ export class MoveOrCopy {
     });
   }
 
+
+  /**
+   * Moves or copies a file or directory
+   * @param origin Origin File or Directory Name
+   * @param destiny Directory File or Directory Name
+   * @param flag This flag checks if the users wants to move or copy
+   */
   private moveCopyFunction(origin: string, destiny: string, flag: boolean) {
     if (flag === true) {
       const mv = spawn('mv', [`${origin}`, `${destiny}`]);

@@ -1,3 +1,4 @@
+/* eslint-disable valid-jsdoc */
 /* eslint-disable require-jsdoc */
 import yargs from 'yargs';
 import {spawn} from 'child_process';
@@ -12,9 +13,10 @@ export class ListFiles {
   */
   constructor() {}
 
+
   /**
-   * List all files in a directory
-   */
+   * Yargs Command
+  */
   listFiles() {
     yargs.command({
       command: 'list',
@@ -33,6 +35,10 @@ export class ListFiles {
     });
   }
 
+  /**
+   * List all files in a directory
+   * @param dirName Name of any directory
+   */
   private listFunction(dirName: string) {
     lstat(`${dirName}`, (err, stats) => {
       if (err) {
